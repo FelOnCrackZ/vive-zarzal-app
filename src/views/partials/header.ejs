@@ -25,10 +25,13 @@
           <a href="/favorites" class="<%= path === '/favorites' ? 'active' : '' %>">Favoritos</a>
         <% } %>
         <% if (can('categories:manage')) { %>
-            <a href="/admin/categories" class="<%= path.startsWith('/admin') ? 'active' : '' %>">Administrar</a>
+            <a href="/admin/categories" class="<%= path.startsWith('/admin') && !path.startsWith('/admin/users') ? 'active' : '' %>">Administrar</a>
           <% } else if (can('tags:manage')) { %>
-            <a href="/admin/tags" class="<%= path.startsWith('/admin') ? 'active' : '' %>">Administrar</a>
+            <a href="/admin/tags" class="<%= path.startsWith('/admin') && !path.startsWith('/admin/users') ? 'active' : '' %>">Administrar</a>
           <% } %>
+        <% if (can('roles:manage')) { %>
+          <a href="/admin/users" class="<%= path.startsWith('/admin/users') ? 'active' : '' %>">Usuarios</a>
+        <% } %>
       </nav>
 
       <div class="header-actions">
