@@ -212,6 +212,16 @@ Las imágenes subidas se guardan en `src/public/uploads/`. Ese contenido no se v
 | `GET` | `/register` | Formulario de registro | Público |
 | `POST` | `/register` | Crear cuenta | Público |
 | `POST` | `/logout` | Cerrar sesión | Autenticado |
+| `GET` | `/admin/categories` | Listar categorías | Permiso `categories:manage` |
+| `POST` | `/admin/categories` | Crear categoría | Permiso `categories:manage` |
+| `POST` | `/admin/categories/:id/edit` | Editar categoría | Permiso `categories:manage` |
+| `POST` | `/admin/categories/:id/delete` | Eliminar categoría (bloqueada si tiene publicaciones) | Permiso `categories:manage` |
+| `GET` | `/admin/tags` | Listar etiquetas | Permiso `tags:manage` |
+| `POST` | `/admin/tags` | Crear etiqueta | Permiso `tags:manage` |
+| `POST` | `/admin/tags/:id/edit` | Editar etiqueta | Permiso `tags:manage` |
+| `POST` | `/admin/tags/:id/delete` | Eliminar etiqueta | Permiso `tags:manage` |
+| `POST` | `/publications/:id/report` | Reportar una publicación | Autenticado |
+| `POST` | `/comments/:id/report` | Reportar un comentario | Autenticado |
 
 ## Modelo de datos
 
