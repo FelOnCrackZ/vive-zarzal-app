@@ -20,10 +20,13 @@ const buildCatalogHandlers = ({
     `No puedes eliminar esta ${label.singular}: tiene ${count} publicación(es) asociada(s).`;
 
   const parse = (body) => {
-    const { error, value } = schema.validate(
-      { name: body.name, description: body.description },
-      { abortEarly: false }
-    );
+    const input = { name: body.name };
+
+    if (hasDescription) {
+      input.description = body.description;
+    }
+
+    const { error, value } = schema.validate(input, { abortEarly: false });
 
     if (error) {
       return { message: firstError(error) };
