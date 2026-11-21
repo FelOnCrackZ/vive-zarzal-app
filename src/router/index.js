@@ -5,6 +5,7 @@ import { publicationRouter } from './publicationRouter.js';
 import { interactionRouter } from './interactionRouter.js';
 import { adminRouter } from './adminRouter.js';
 import { adminUsersRouter } from './adminUsersRouter.js';
+import { adminReportsRouter } from './adminReportsRouter.js';
 
 const router = Router();
 
@@ -14,5 +15,6 @@ router.use(publicationRouter);
 router.use(interactionRouter);
 router.use(adminRouter);
 router.use(adminUsersRouter);
+router.use(adminReportsRouter);
 
 export default router;
