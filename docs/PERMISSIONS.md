@@ -77,6 +77,17 @@ Todas las vistas EJS tienen disponible `can('permiso')`, que devuelve `true` o `
 
 Ocultar un botón no protege la ruta: la ruta también debe llevar su `requireRole` o `requirePermission`.
 
+## Administrar los roles de los usuarios
+
+El panel `/admin/users` (solo quien tiene `roles:manage`, es decir, `admin`) lista las cuentas con sus roles y permite asignar o quitar roles. Reglas:
+
+1. **Asignar un rol que el usuario ya tiene** no es un error: se muestra un aviso y no se duplica el registro de `user_roles`.
+2. **Un usuario siempre conserva al menos un rol.** Para cambiar de rol, primero se asigna el nuevo y luego se quita el anterior.
+3. **Un administrador no puede quitarse su propio rol `admin`.**
+4. **Nunca se deja el sistema sin administrador.** Como hoy solo un `admin` puede abrir el panel, el último administrador solo podría perder el rol a manos de sí mismo (regla 3). La comprobación del conteo se mantiene por si otro rol recibe `roles:manage` en el futuro.
+
+Rutas: `GET /admin/users`, `POST /admin/users/:id/roles` (campo `roleId`) y `POST /admin/users/:id/roles/:roleId/delete`.
+
 ## Pruebas
 
-`tests/authorization.test.js` cubre los tres roles y el caso sin sesión: `403` para `member` y `moderator` en una ruta `requireRole('admin')`, `200` para `admin`, redirección al login sin sesión, permisos por rol y el helper `can()`. Necesita la base con migraciones y seeders aplicados (`npm run test:setup`).
+`tests/authorization.test.js` cubre los tres roles y el caso sin sesión: `403` para `member` y `moderator` en una ruta `requireRole('admin')`, `200` para `admin`, redirección al login sin sesión, permisos por rol y el helper `can()`. `tests/adminUsers.test.js` cubre el panel de roles: acceso (login, `403`, `200`), asignación, duplicado, quitar rol, conservar al menos un rol y no quitarse el propio `admin`. Necesitan la base con migraciones y seeders aplicados (`npm run test:setup`).
