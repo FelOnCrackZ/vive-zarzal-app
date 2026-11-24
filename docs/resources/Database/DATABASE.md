@@ -267,7 +267,7 @@ Report * ── 0..1 Comment
 | `20261031000001-categories.cjs` | 7 categorías de comida |
 | `20261031000002-roles-and-permissions.cjs` | 3 roles, 14 permisos y asignaciones; asigna `member` a usuarios sin rol |
 | `20261031000003-document-types.cjs` | 6 tipos de documento |
-| `20261031000004-locations.cjs` | Colombia, 3 departamentos y 5 ciudades |
+| `20261031000004-locations.cjs` | 7 países (incluyendo Colombia con sus 32 departamentos y Bogotá, D.C.), 44 divisiones y 75 ciudades |
 | `20261031000005-tags.cjs` | 8 etiquetas |
 
 Los seeders consultan los catálogos antes de insertar, por lo que se pueden ejecutar más de una vez.
