@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
     cb(null, `${randomUUID()}${EXTENSIONS[file.mimetype]}`),
 });
 
-export const uploadSupport = multer({
+export const upload = multer({
   storage,
   limits: { fileSize: MAX_SUPPORT_SIZE, files: 1 },
   fileFilter: (req, file, cb) => {
@@ -30,3 +30,20 @@ export const uploadSupport = multer({
     cb(error);
   },
 }).single('support');
+
+export const uploadSupport = (req, res, next) => {
+  upload(req, res, (err) => {
+    if (!err) return next();
+
+    let message = 'No fue posible subir el soporte.';
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      message = `El soporte supera el tamaño máximo de ${MAX_SUPPORT_SIZE / 1024 / 1024} MB.`;
+    } else if (err.code === 'INVALID_FILE_TYPE') {
+      message = 'El soporte debe ser un archivo PDF, JPG o PNG.';
+    }
+
+    const error = new Error(message);
+    error.status = 400;
+    return next(error);
+  });
+};
