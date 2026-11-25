@@ -1,31 +1,17 @@
 import { Router } from 'express';
-import { requireAuth } from '../middlewares/auth.js';
-import { loadDocument } from '../middlewares/documentAccess.js';
-import { uploadSupport } from '../middlewares/uploadSupport.js';
 import {
-  saveDocumentSupport,
-  downloadDocumentSupport,
+  createDocument,
   deleteDocument,
+  listDocuments,
+  showEditDocument,
+  updateDocument,
 } from '../controllers/documentController.js';
+import { requireAuth } from '../middlewares/auth.js';
 
 export const documentRouter = Router();
 
-documentRouter.post(
-  '/documents/:id/support',
-  requireAuth,
-  loadDocument(),
-  uploadSupport,
-  saveDocumentSupport,
-);
-documentRouter.get(
-  '/documents/:id/support',
-  requireAuth,
-  loadDocument({ allowAdmin: true }),
-  downloadDocumentSupport,
-);
-documentRouter.post(
-  '/documents/:id/delete',
-  requireAuth,
-  loadDocument(),
-  deleteDocument,
-);
+documentRouter.get('/profile/documents', requireAuth, listDocuments);
+documentRouter.post('/profile/documents', requireAuth, createDocument);
+documentRouter.get('/profile/documents/:id/edit', requireAuth, showEditDocument);
+documentRouter.post('/profile/documents/:id/edit', requireAuth, updateDocument);
+documentRouter.post('/profile/documents/:id/delete', requireAuth, deleteDocument);

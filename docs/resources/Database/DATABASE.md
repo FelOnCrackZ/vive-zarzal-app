@@ -155,6 +155,17 @@ Documentos asociados a una cuenta.
 * `is_verified`, `verified_at` para el flujo de verificación.
 * Índices únicos: `(user_id, document_type_id)` y `(document_type_id, document_number)`.
 
+Privacidad del número de documento:
+
+| Dónde | Qué se muestra |
+| --- | --- |
+| Perfil público (`/users/:id`) | Nada: ni tipo, ni número, ni fechas. |
+| Lista propia (`/profile/documents`) | Tipo, fechas, estado de verificación y número enmascarado (`••••` más hasta 3 últimos caracteres). |
+| Edición propia (`/profile/documents/:id/edit`) | Número completo, solo para su dueño. |
+| Mensajes de error | Nunca indican a quién pertenece un número ya registrado. |
+
+Reglas del formulario: el número se guarda en mayúsculas, con 4 a 50 caracteres entre letras, números y guiones. La fecha de expedición no puede ser posterior a la de vencimiento. Solo se ofrecen tipos con `is_active = true`. Si se editan los datos de un documento verificado, `is_verified` vuelve a `false`.
+
 ## Ubicación
 
 ### `countries`
@@ -256,7 +267,7 @@ Report * ── 0..1 Comment
 | `20261031000001-categories.cjs` | 7 categorías de comida |
 | `20261031000002-roles-and-permissions.cjs` | 3 roles, 14 permisos y asignaciones; asigna `member` a usuarios sin rol |
 | `20261031000003-document-types.cjs` | 6 tipos de documento |
-| `20261031000004-locations.cjs` | Colombia, 3 departamentos y 5 ciudades |
+| `20261031000004-locations.cjs` | 7 países (incluyendo Colombia con sus 32 departamentos y Bogotá, D.C.), 44 divisiones y 75 ciudades |
 | `20261031000005-tags.cjs` | 8 etiquetas |
 
 Los seeders consultan los catálogos antes de insertar, por lo que se pueden ejecutar más de una vez.
