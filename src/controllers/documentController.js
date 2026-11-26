@@ -116,6 +116,7 @@ const renderEditDocument = (res, document, { status = 200, error, values } = {})
       id: document.id,
       typeName: document.documentType.name,
       isVerified: document.isVerified,
+      hasSupport: Boolean(document.supportPath),
     },
     values: values || {
       documentNumber: document.documentNumber,
@@ -291,5 +292,6 @@ export const downloadDocumentSupport = async (req, res) => {
       'Cache-Control': 'private, no-store',
       'X-Content-Type-Options': 'nosniff',
     },
+    
   });
 };
