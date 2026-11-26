@@ -153,6 +153,7 @@ Documentos asociados a una cuenta.
 * `document_number` varchar(50).
 * `issued_at`, `expires_at` como fechas.
 * `is_verified`, `verified_at` para el flujo de verificación.
+* `support_path` varchar(255), nulo: nombre del archivo del soporte (PDF, JPG o PNG) guardado en `storage/supports/`. No es una ruta pública; solo el dueño lo descarga.
 * Índices únicos: `(user_id, document_type_id)` y `(document_type_id, document_number)`.
 
 Privacidad del número de documento:
